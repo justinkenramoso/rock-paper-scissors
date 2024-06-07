@@ -1,0 +1,26 @@
+Algorithms for each step:
+
+## getComputerChoice function:
+- generate a random number from 1 - 10
+- if the number is less than 4, return "rock"
+- if the number is or between 4 and 7, return "paper"
+- otherwise, return "scissors"
+
+## getHumanChoice function
+- promt user for input (give out clear choices)
+- return that input
+
+## player score variables
+- create variables for human and computer score
+- their initial values are both 0
+
+## playRound function
+- accept two parameters: humanChoice and getComputerChoice
+- make parameters case insensitive
+- nest if else statements for the logic of the game (too much to put here)
+- display the result
+- increment human/computer score depending on the winner
+
+## playGame function
+- call playRound 5 times
+- compare scores and display winner

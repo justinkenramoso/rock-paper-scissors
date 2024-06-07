@@ -6,7 +6,57 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    return prompt("Your choice? (rock,paper, or scissors)");
+    let choice = prompt("Your choice? (rock,paper, or scissors)");
+    return choice.toLowerCase();
 }
 
-console.log(getHumanChoice());
+let humanScore = 0;
+let computerScore = 0;
+
+function playRound(humanChoice, computerChoice) {
+    alert(`Your choice was: ${humanChoice}! \nComputer's choice was: ${computerChoice}!`);
+
+    let scoreGoesTo = "";
+
+    scoreGoesTo = humanChoice === computerChoice ? "nobody"
+    : humanChoice === "rock" && computerChoice === "paper" ? "computer"
+    : humanChoice === "rock" && computerChoice === "scissors" ? "human"
+    : humanChoice === "paper" && computerChoice === "rock" ? "human"
+    : humanChoice === "paper" && computerChoice === "scissors" ? "computer"
+    : humanChoice === "scissors" && computerChoice === "paper" ? "human"
+    : humanChoice === "scissors" && computerChoice === "rock" ? "computer"
+    : console.warn("Logical error");
+
+    if (scoreGoesTo === "nobody") {
+        alert("Draw!")
+    } else if (scoreGoesTo === "human") {
+        alert("You win!")
+        humanScore++;
+    } else if (scoreGoesTo === "computer") {
+        alert("You lose!")
+        computerScore++;
+    }
+}
+
+
+
+function playGame() {
+    for (let i = 0; i < 5; i++) {
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+        playRound(humanSelection, computerSelection);
+    }
+
+    alert(`Your total score: ${humanScore} \nComputer total score: ${computerScore}`);
+
+    let message = "";
+    message = humanScore === computerScore ? "It's a tie!"
+    : humanScore > computerScore ? "You win! congratulations!"
+    : humanScore < computerScore ? "You lose! better luck next time!"
+    : "Error!"
+
+    alert(message);
+
+}
+
+playGame();
