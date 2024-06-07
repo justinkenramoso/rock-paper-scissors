@@ -6,8 +6,24 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    let choice = prompt("Your choice? (rock,paper, or scissors)");
-    return choice.toLowerCase();
+
+    let choice = "";
+    let choiceIsValid = false;
+
+    while (!choiceIsValid) {
+
+        let input = prompt("Your choice? (rock,paper, or scissors)");
+        input = input.toLowerCase();
+        if (input === "rock" || input === "paper" || input === "scissors") {
+            choiceIsValid = true;
+            choice = input;
+        } else {
+            alert("Invalid input. Please choose from \'rock\',\'paper\', or \'scissors\'. ")
+        }
+    }
+
+    return choice;
+
 }
 
 let humanScore = 0;
