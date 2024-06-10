@@ -5,32 +5,14 @@ function getComputerChoice() {
         : "scissors";
 }
 
-function getHumanChoice() {
-
-    let choice = "";
-    let choiceIsValid = false;
-
-    while (!choiceIsValid) {
-
-        let input = prompt("Your choice? (rock,paper, or scissors)");
-        input = input.toLowerCase();
-        if (input === "rock" || input === "paper" || input === "scissors") {
-            choiceIsValid = true;
-            choice = input;
-        } else {
-            alert("Invalid input. Please choose from \'rock\',\'paper\', or \'scissors\'. ")
-        }
-    }
-
-    return choice;
-
-}
-
 let humanScore = 0;
 let computerScore = 0;
 
 function playRound(humanChoice, computerChoice) {
-    alert(`Your choice was: ${humanChoice}! \nComputer's choice was: ${computerChoice}!`);
+    
+
+    const results = document.querySelector("#results");
+    results.textContent = `Your choice was: ${humanChoice}! \nComputer's choice was: ${computerChoice}!`
 
     let scoreGoesTo = "";
 
@@ -43,36 +25,46 @@ function playRound(humanChoice, computerChoice) {
     : humanChoice === "scissors" && computerChoice === "rock" ? "computer"
     : console.warn("Logical error");
 
+    const roundWinnerText = document.createElement("p");
+
     if (scoreGoesTo === "nobody") {
-        alert("Draw!")
+        roundWinnerText.textContent += "\nDraw!"
     } else if (scoreGoesTo === "human") {
-        alert("You win!")
+        roundWinnerText.textContent += "\nYou win!"
         humanScore++;
     } else if (scoreGoesTo === "computer") {
-        alert("You lose!")
+        roundWinnerText.textContent += "\nYou lose!"
         computerScore++;
     }
-}
 
-
-
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
+    if (humanScore === 5) {
+        alert("Congratulations! You have won 5 rounds!");
+        humanScore = 0;
+        computerScore = 0;
+    } else if (computerScore === 5) {
+        alert("You have lost 5 rounds! Better luck next time!");
+        humanScore = 0;
+        computerScore = 0;
     }
 
-    alert(`Your total score: ${humanScore} \nComputer total score: ${computerScore}`);
-
-    let message = "";
-    message = humanScore === computerScore ? "It's a tie!"
-    : humanScore > computerScore ? "You win! congratulations!"
-    : humanScore < computerScore ? "You lose! better luck next time!"
-    : "Error!"
-
-    alert(message);
+    const scoresDisplay = document.querySelector("#scores");
+    scoresDisplay.textContent = `Scores - You: ${humanScore} / Computer: ${computerScore}`
+    results.appendChild(roundWinnerText);
 
 }
 
-playGame();
+const rock = document.querySelector("#rock");
+const paper = document.querySelector("#paper");
+const scissors = document.querySelector("#scissors");
+
+rock.addEventListener("click", () => {
+    playRound("rock", getComputerChoice());
+})
+
+paper.addEventListener("click", () => {
+    playRound("paper", getComputerChoice());
+})
+
+scissors.addEventListener("click", () => {
+    playRound("scissors", getComputerChoice());
+})
